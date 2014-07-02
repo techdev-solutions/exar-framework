@@ -14,5 +14,8 @@
 		"ext-tokenizer": "*",
 		"nikic/php-parser": "1.0.*@dev"
 	},
+	"autoload": {
+		"files": ["lib/bootstrap.php"]
+	},
 	"minimum-stability": "dev"
 }
