@@ -12,6 +12,6 @@
   "require": {
   	"php": ">=5.3",
     "ext-tokenizer": "*",
-    "nikic/php-parser": "dev-master"
+	"nikic/php-parser": "1.0.*@dev"
   }
 }
