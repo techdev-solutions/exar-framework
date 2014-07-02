@@ -1,17 +1,18 @@
 {
-  "name": "techdev-solutions/exar",
-  "description": "EXAR - an AOP Framework for PHP",
-  "keywords": ["php", "aop"],
-  "type": "library",
-  "license": "MIT",
-  "authors": [
-    {
-        "name": "Viktor Widiker, techdev Solutions UG"
-    }
-  ],
-  "require": {
-  	"php": ">=5.3",
-    "ext-tokenizer": "*",
-	"nikic/php-parser": "1.0.*@dev"
-  }
+	"name": "techdev-solutions/exar",
+	"description": "EXAR - an AOP Framework for PHP",
+	"keywords": ["php", "aop"],
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+	{
+		"name": "Viktor Widiker, techdev Solutions UG"
+	}
+	],
+	"require": {
+ 		"php": ">=5.3",
+		"ext-tokenizer": "*",
+		"nikic/php-parser": "1.0.*@dev"
+	},
+	"minimum-stability": "dev"
 }
