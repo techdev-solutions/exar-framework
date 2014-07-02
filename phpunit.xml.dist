@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         >
+		 bootstrap="./test/bootstrap.php">
     <testsuites>
         <testsuite name="EXAR Test Suite">
             <directory>./test/</directory>
