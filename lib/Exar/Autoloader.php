@@ -5,12 +5,12 @@ class Autoloader {
 	const NAMESPACE_SEPARATOR = '\\';
 
     static private $cacheDir = null;
-	static private $namespaces = array();
+	static private $namespaces = array('Exar');
     static private $weaver = null;
 
 	static public function register($cacheDir, array $namespaces, $prepend = true) {
         self::$cacheDir = $cacheDir;
-		self::$namespaces = $namespaces;
+		self::$namespaces = array_merge(self::$namespaces, $namespaces);
         spl_autoload_register(array(__CLASS__, 'autoload'), true, $prepend);
     }
 	
@@ -40,19 +40,6 @@ class Autoloader {
                 return self::getWeaver()->process($file);
             }
         }
-/*
-        foreach(explode(PATH_SEPARATOR, get_include_path()) as $dir) {
-            $fileName = $dir . strtr($class, self::NAMESPACE_SEPARATOR, '/') . '.php';
-            if (file_exists($fileName)) {
-                if ($class == 'Exar\\Aop\\Weaver') {
-                    return require_once $fileName;
-                } else {
-                    $weaver = new \Exar\Aop\Weaver(self::$cacheDir);
-                    return $weaver->process($fileName);
-                }
-            }
-        }
-*/
 	}
 
     static private function getWeaver() {
