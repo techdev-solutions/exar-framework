@@ -4,6 +4,7 @@
 	"keywords": ["php", "aop"],
 	"type": "library",
 	"license": "MIT",
+	"homepage": "http://www.exarphp.com",
 	"authors": [
 	{
 		"name": "Viktor Widiker, techdev Solutions UG"
