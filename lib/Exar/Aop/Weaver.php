@@ -17,12 +17,12 @@ class Weaver {
 		$this->parser = new \PhpParser\Parser(new \PhpParser\Lexer);
 		$this->prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 
-        $this->cacheDir = realpath($cacheDir);
-
         /** check cache directory */
-        if (!file_exists($this->cacheDir)) {
-            throw new \InvalidArgumentException('Cache directory does not exist: ' . $cacheDir);
+        if (!file_exists($cacheDir)) {
+            mkdir($cacheDir, 0777);
         }
+
+        $this->cacheDir = realpath($cacheDir);
 
         if (!is_dir($this->cacheDir)) {
             throw new \InvalidArgumentException('Cache directory is not a directory: ' . $this->cacheDir);
