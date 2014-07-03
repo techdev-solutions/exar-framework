@@ -24,6 +24,7 @@ class Track extends Annotation implements BeforeInvocationInterceptor, AfterInvo
 
 	public function afterThrowing(InvocationContext $context) {
 		echo $this->createMessage($context, 'After throwing');
+
 	}
 
 	public function afterInvocation(InvocationContext $context, $result) {

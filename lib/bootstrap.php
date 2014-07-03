@@ -1,5 +1,9 @@
 <?php
-require_once 'vendor/autoload.php';
+$vendorDir = 'vendor';
+if (!file_exists($vendorDir)) {
+    $vendorDir = dirname(dirname(dirname(dirname(__FILE__))));
+}
+require_once $vendorDir . '/autoload.php';
 
 /** add EXAR sources to include path */
 $exarSource = dirname(dirname(__FILE__)) . '/lib/';
