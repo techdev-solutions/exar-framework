@@ -24,7 +24,6 @@ class Track extends Annotation implements BeforeInvocationInterceptor, AfterInvo
 
 	public function afterThrowing(InvocationContext $context) {
 		echo $this->createMessage($context, 'After throwing');
-
 	}
 
 	public function afterInvocation(InvocationContext $context, $result) {
@@ -34,7 +33,7 @@ class Track extends Annotation implements BeforeInvocationInterceptor, AfterInvo
 	
 	private function createMessage(InvocationContext $context, $prefix = '') {
 		if ($this->value === null) {
-			return $prefix.': '.$context->getClassName().'->'.$context->getMethodName().' ('.date('d.m.Y H:i:s', time()).')';
+			return $prefix.': '.$context->getClassName().'->'.$context->getMethodName().' ('.date('d.m.Y H:i:s', time()).')'.PHP_EOL;
 		}
 		return $this->value;
 	}
