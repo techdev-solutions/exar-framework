@@ -21,7 +21,6 @@ class AnnotationParser {
 	private function __construct() {
 		self::$namespaces = array();
 		self::$namespaces[] = self::EXAR_ANNOTATION_NAMESPACE;
-		self::$namespaces[] = '\\Test\\Annotation';
 		self::$matcher = new AnnotationsMatcher();
 	}
 	
