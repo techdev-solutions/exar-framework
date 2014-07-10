@@ -1,7 +1,7 @@
 <?php
 namespace Exar\Annotation\Matcher;
 
-class NameValuePairMatcher extends SequentialMatcher {
+class KeyValuePairMatcher extends SequentialMatcher {
 	public function __construct() {
 		$this->add(new RegexMatcher(AnnotationsMatcher::REGEX_PARAMETER_NAME));
 		$this->add(new StringMatcher('='));

@@ -17,7 +17,7 @@ class AnnotationsMatcher extends SequentialMatcher {
 		$valuesMatcher->add(new StringMatcher('('));
 		
 		$pMatcher = new ParallelMatcher();
-		$pMatcher->add(new SeparatedValuesMatcher(new NameValuePairMatcher())); // for separated parameters
+		$pMatcher->add(new SeparatedValuesMatcher(new KeyValuePairMatcher())); // for separated parameters
 		$pMatcher->add(new SingleValueMatcher()); // for top level parameter
 		$pMatcher->add(new StringMatcher()); // for empty parameter
 		$valuesMatcher->add($pMatcher);
