@@ -6,9 +6,9 @@ use Exar\Annotation\Matcher\AnnotationsMatcher;
 class AnnotationParser {
 	static private $instance = null;
 	
-	const EXAR_ANNOTATION_NAMESPACE = '\\Exar\\Aop\\Interceptor';
+	const EXAR_ANNOTATION_NAMESPACE = '\\Exar\\Aop\\Interceptor'; // namespace for exar interceptors
 	
-	static private $namespaces;
+	static private $namespaces; // registered interceptors namespaces
 	static private $matcher;
 	
 	static public function getInstance() {
@@ -21,36 +21,37 @@ class AnnotationParser {
 	private function __construct() {
 		self::$namespaces = array();
 		self::$namespaces[] = self::EXAR_ANNOTATION_NAMESPACE;
+        // TODO allow namespaces for custom annotations
 		self::$matcher = new AnnotationsMatcher();
 	}
 	
 	public function readAnnotations($docBlock, $targetReflection) {
-		$lines = explode(PHP_EOL, trim($docBlock));
+		$lines = explode(PHP_EOL, trim($docBlock)); // get docblock lines
 
 		$annotations = array();
 		foreach ($lines as $line) {
 			if(!preg_match('/@[A-Z]/', $line, $matches, PREG_OFFSET_CAPTURE)) {
 				continue; // ignore lines which do not start with an annotation
 			}
-			$line = substr($line, $matches[0][1] + 1);
+			$line = substr($line, $matches[0][1] + 1); // extract annotation name, ignore '@'
 			$annotationName = trim($line);
 			
-			$arr = self::$matcher->match($line);
+			$arr = self::$matcher->match($line); // annotation data
 
 			if ($arr['name'] !== null) {
 				$annotationName = $arr['name'];
 			} else {
-				$arr['name'] = $annotationName;
+				$arr['name'] = $annotationName; // annotation without parameters
 			}
 			
-			$parameters = $arr['parameters']; // annotation parameters
+			$parameters = $arr['parameters']; // get annotation parameters
 			
 			if (!isset($annotations[$annotationName])) {
 				$annotations[$annotationName] = array(); // initialize annotation array (every target can contain several annotations with the same name)
 			}
 			
 			$annotationInstantiated = false;
-			foreach (self::$namespaces as $namespace) { // walk through registered annotaion namespaces
+			foreach (self::$namespaces as $namespace) { // walk through registered annotation namespaces
 				try {
 					$className = $namespace.'\\'.$annotationName;
 					
@@ -70,7 +71,7 @@ class AnnotationParser {
 				}
 			}
 			
-			if (!$annotationInstantiated) {
+			if (!$annotationInstantiated) { // no annotation instantiated, os create an simple annotation object
 				$simpleAnnotation = new SimpleAnnotation($parameters, $targetReflection, $annotationName);
 				array_unshift($annotations[$annotationName], $simpleAnnotation);
 			}

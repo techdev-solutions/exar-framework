@@ -5,10 +5,10 @@ class SequentialMatcher extends AbstractMatcher {
 	protected $matchers = array();
 
 	public function match(&$str) {
-		$toParse = $str;
+		$toParse = $str; // will be changed on every successful matching
 		$result = array();
-		foreach ($this->matchers as $matcher) {
-			$toParse = trim($toParse);
+		foreach ($this->matchers as $matcher) { // loop over matchers, maintain matcher order
+			$toParse = trim($toParse); // ignore whitespaces
 			
 			$value = $matcher->match($toParse);
 			if (is_array($value)) {
