@@ -1,6 +1,6 @@
 <?php
 namespace Exar\Annotation\Matcher;
 
-interface MatcherInterface {
+interface Matcher {
 	public function match(&$str);
 }

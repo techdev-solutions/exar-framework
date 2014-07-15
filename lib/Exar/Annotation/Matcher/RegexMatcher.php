@@ -1,7 +1,7 @@
 <?php
 namespace Exar\Annotation\Matcher;
 
-class RegexMatcher implements MatcherInterface {
+class RegexMatcher implements Matcher {
 	private $pattern;
 
 	public function __construct($pattern) {

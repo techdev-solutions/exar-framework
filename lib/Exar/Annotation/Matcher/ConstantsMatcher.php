@@ -1,7 +1,7 @@
 <?php
 namespace Exar\Annotation\Matcher;
 
-class ConstantsMatcher implements MatcherInterface {
+class ConstantsMatcher implements Matcher {
 	private static $mapping = null;
 	
 	public function __construct() {

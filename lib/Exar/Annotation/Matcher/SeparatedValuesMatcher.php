@@ -1,10 +1,10 @@
 <?php
 namespace Exar\Annotation\Matcher;
 
-class SeparatedValuesMatcher implements MatcherInterface {
+class SeparatedValuesMatcher implements Matcher {
 	private $matcherForSeparatedValues;
 
-	public function __construct(MatcherInterface $matcherForSeparatedValues) {
+	public function __construct(Matcher $matcherForSeparatedValues) {
 		$this->matcherForSeparatedValues = $matcherForSeparatedValues;
 	}
 
