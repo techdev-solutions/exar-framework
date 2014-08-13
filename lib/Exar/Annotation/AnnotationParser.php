@@ -50,22 +50,22 @@ class AnnotationParser {
 				$annotations[$annotationName] = array(); // initialize annotation array (every target can contain several annotations with the same name)
 			}
 			
-			$annotationInstantiated = false;
+			$annotationInstantiated = false; // initial value - annotation object is not instantiated yet
 			foreach (self::$namespaces as $namespace) { // walk through registered annotation namespaces
 				try {
-					$className = $namespace.'\\'.$annotationName;
+					$className = $namespace.'\\'.$annotationName; // build class name for the annotation object
 					
 					if (!in_array($className, get_declared_classes())) { // class is not declared yet
 						if (!\Exar\Autoloader::autoload($className)) { // class definition not found
-							continue;
+							continue; // do nothing, jump to the next registered annotation namespaces
 						}
 					}
 					
-					$rAnnotation = new \ReflectionClass($className);
-					$annotation = $rAnnotation->newInstance($parameters, $targetReflection);
-					array_unshift($annotations[$annotationName], $annotation);
-					$annotationInstantiated = true;
-					break;
+					$rAnnotation = new \ReflectionClass($className); // create reflection object of the annotation class
+					$annotation = $rAnnotation->newInstance($parameters, $targetReflection); // instantiate annotation object
+					array_unshift($annotations[$annotationName], $annotation); // remember created annotation object in an array
+					$annotationInstantiated = true; // set instantiation flag to "true"
+					break; // since the annotation object is created, we don't need to check other namespaces and can leave the loop
 				} catch (\ReflectionException $e) {
 					// There was no annotation found within the current namespace
 				}

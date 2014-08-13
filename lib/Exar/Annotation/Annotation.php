@@ -10,8 +10,6 @@ abstract class Annotation {
 	
 	protected $value;
 
-    private static $count = 0;
-	
 	public function __construct($data, \Reflector $target) {
 		$rClass = new \ReflectionClass(get_class($this));
 		$this->_name = $rClass->getShortName();
@@ -20,7 +18,7 @@ abstract class Annotation {
 		
 		$rClass = new \ReflectionClass($this);
 		
-		if (isset($data['value']) && !$this->allowValueProperty()) {
+		if (isset($data['value']) && !$this->isAllowValueProperty()) {
 			trigger_error('Property "value" ist not allowed on annotation "'.$rClass->getName().'"', E_USER_ERROR);
 		}
 		
@@ -41,9 +39,9 @@ abstract class Annotation {
 	
 	private function checkTargetAnnotation($target) {
 		$rClass = new ReflectionClass(get_class($this));
-		if($rClass->hasAnnotation('Target')) {
-			$value = $rClass->getAnnotation('Target')->value;
-			$values = is_array($value) ? $value : array($value);
+		if ($rClass->hasAnnotation('Target')) { // @Target is set
+			$value = $rClass->getAnnotation('Target')->value; // read the value attribute of @Target
+			$values = is_array($value) ? $value : array($value); // convert string value into an array if needed
 			foreach($values as $value) {
                 $value = strtolower($value);
 				if ($value == 'class' && $target instanceof \ReflectionClass) return;
@@ -54,7 +52,7 @@ abstract class Annotation {
 		}
 	}
 	
-	public function allowValueProperty() {
+	public function isAllowValueProperty() {
 		return $this->_allowValueProperty;
 	}
 	
