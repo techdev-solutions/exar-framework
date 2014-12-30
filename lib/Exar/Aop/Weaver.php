@@ -227,7 +227,6 @@ class Weaver {
      * @param \PhpParser\Node\Stmt\Class_ $class
      * @param $namespace
      * @param $constructor
-     * @param $wrapperMethods
      * @return array
      */
     private function handleConstructors(\PhpParser\Node\Stmt\Class_ $class, $namespace, $constructor) {
