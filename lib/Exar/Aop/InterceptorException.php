@@ -2,12 +2,8 @@
 namespace Exar\Annotation\Interceptor;
 
 /**
- * Exception-Klasse zum Abbrechen von Interceptor-Ausf�hrungen.<br/>
- * Z.B. muss bei der <code>Secured</code>-Annotation die Ausf�hrung der gesch�tzten Action
- * abgebrochen werden, falls die Berechtigung seitens Nutzer fehlt. So wird diese Exception geworfen.
- * Sie bewirkt ausschlie�lich den Ausgang aus der Action und sollte nicht woanders verwendet werden.
- *
- * @author vwidiker
+ * Exception class for interruptions of interceptor executions.<br/>
+ * It is used to immediately stop interceptor actions and should only be used by generated code.
  */
 use Exar\Exception;
 
