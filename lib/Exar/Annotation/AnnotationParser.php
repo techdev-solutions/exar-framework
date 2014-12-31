@@ -30,7 +30,9 @@ class AnnotationParser {
 
 		$annotations = array();
 		foreach ($lines as $line) {
-			if(!preg_match('/@[A-Z]/', $line, $matches, PREG_OFFSET_CAPTURE)) {
+			$line = preg_replace('/^\/\*\*/', '', trim($line));
+			$line = trim(preg_replace('/^\*/', '', $line));
+			if(!preg_match('/^@[A-Z]/', $line, $matches, PREG_OFFSET_CAPTURE)) {
 				continue; // ignore lines which do not start with an annotation
 			}
 			$line = substr($line, $matches[0][1] + 1); // extract annotation name, ignore '@'
@@ -49,7 +51,7 @@ class AnnotationParser {
 			if (!isset($annotations[$annotationName])) {
 				$annotations[$annotationName] = array(); // initialize annotation array (every target can contain several annotations with the same name)
 			}
-			
+
 			$annotationInstantiated = false; // initial value - annotation object is not instantiated yet
 			foreach (self::$namespaces as $namespace) { // walk through registered annotation namespaces
 				try {
