@@ -2,13 +2,11 @@
 namespace Exar\Annotation;
 
 use Exar\Annotation\Matcher\AnnotationsMatcher;
+use Exar\Autoloader;
 
 class AnnotationParser {
 	static private $instance = null;
 	
-	const EXAR_ANNOTATION_NAMESPACE = '\\Exar\\Aop\\Interceptor'; // namespace for exar interceptors
-	
-	static private $namespaces; // registered interceptors namespaces
 	static private $matcher;
 	
 	static public function getInstance() {
@@ -19,9 +17,6 @@ class AnnotationParser {
 	}
 	
 	private function __construct() {
-		self::$namespaces = array();
-		self::$namespaces[] = self::EXAR_ANNOTATION_NAMESPACE;
-        // TODO allow namespaces for custom annotations
 		self::$matcher = new AnnotationsMatcher();
 	}
 	
@@ -53,10 +48,11 @@ class AnnotationParser {
 			}
 
 			$annotationInstantiated = false; // initial value - annotation object is not instantiated yet
-			foreach (self::$namespaces as $namespace) { // walk through registered annotation namespaces
+
+			foreach (Autoloader::getAnnotationNamespaces() as $namespace) { // walk through registered annotation namespaces
 				try {
 					$className = $namespace.'\\'.$annotationName; // build class name for the annotation object
-					
+
 					if (!in_array($className, get_declared_classes())) { // class is not declared yet
 						if (!\Exar\Autoloader::autoload($className)) { // class definition not found
 							continue; // do nothing, jump to the next registered annotation namespaces
@@ -73,7 +69,7 @@ class AnnotationParser {
 				}
 			}
 			
-			if (!$annotationInstantiated) { // no annotation instantiated, os create an simple annotation object
+			if (!$annotationInstantiated) { // no annotation instantiated, so create an simple annotation object
 				$simpleAnnotation = new SimpleAnnotation($parameters, $targetReflection, $annotationName);
 				array_unshift($annotations[$annotationName], $simpleAnnotation);
 			}

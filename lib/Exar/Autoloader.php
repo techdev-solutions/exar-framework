@@ -3,14 +3,17 @@ namespace Exar;
 
 class Autoloader {
 	const NAMESPACE_SEPARATOR = '\\';
+    const EXAR_ANNOTATION_NAMESPACE = '\\Exar\\Aop\\Interceptor'; // namespace for exar interceptors
 
     static private $cacheDir = null;
 	static private $namespaces = array('Exar');
+    static private $annotationNamespaces = array('Exar'); // registered interceptor namespaces
     static private $weaver = null;
 
 	static public function register($cacheDir, array $namespaces, $prepend = true) {
         self::$cacheDir = $cacheDir;
 		self::$namespaces = array_merge(self::$namespaces, $namespaces);
+        self::$annotationNamespaces = array(self::EXAR_ANNOTATION_NAMESPACE);
         spl_autoload_register(array(__CLASS__, 'autoload'), true, $prepend);
     }
 	
@@ -54,6 +57,30 @@ class Autoloader {
      */
     static public function getCacheDir() {
         return self::$cacheDir;
+    }
+
+    /**
+     * Return all registered namenspaces.
+     */
+    static public function getNamespaces() {
+        return self::$namespaces;
+    }
+
+    /**
+     * Add annotation namespaces.
+     */
+    static public function addAnnotationNamespaces($ns) {
+        if (!is_array($ns)) {
+            $ns = array($ns);
+        }
+        self::$annotationNamespaces = array_merge(self::$annotationNamespaces, $ns);
+    }
+
+    /**
+     * Return all registered annotation namenspaces.
+     */
+    static public function getAnnotationNamespaces() {
+        return self::$annotationNamespaces;
     }
 
     /**
