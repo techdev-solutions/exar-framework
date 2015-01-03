@@ -2,5 +2,5 @@
 namespace Exar\Annotation\Matcher;
 
 interface Matcher {
-	public function match(&$str);
+    public function match(&$str);
 }

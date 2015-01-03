@@ -5,7 +5,7 @@ namespace Exar\TestClasses;
  * @Exar
  */
 class ClassWithPostConstruct {
-	private $value = null;
+    private $value = null;
 
     function __construct() {
     }

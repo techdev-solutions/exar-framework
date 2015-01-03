@@ -12,10 +12,10 @@ class WeaverTest extends SimpleTest {
         self::$cacheDir = \Exar\Autoloader::getCacheDir();
     }
 
-	public function testCacheDir() {
-		$weaver = new Weaver(self::$cacheDir);
+    public function testCacheDir() {
+        $weaver = new Weaver(self::$cacheDir);
         $this->assertEquals(self::$cacheDir, $weaver->getCacheDir());
-	}
+    }
 
     public function testCacheDirDoesNotExist() {
         try {

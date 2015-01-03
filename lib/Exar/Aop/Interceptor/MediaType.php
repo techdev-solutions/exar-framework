@@ -11,8 +11,8 @@ use Exar\Aop\InvocationContext;
  * @Target("method")
  */
 class MediaType extends Annotation implements AfterInvocationInterceptor {
-	public function afterInvocation(InvocationContext $context, $result) {
-		header('Content-Type: ' . $this->value);
-		return $result;
-	}
+    public function afterInvocation(InvocationContext $context, $result) {
+        header('Content-Type: ' . $this->value);
+        return $result;
+    }
 }

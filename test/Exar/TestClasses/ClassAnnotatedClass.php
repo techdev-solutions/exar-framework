@@ -10,5 +10,4 @@ namespace Exar\TestClasses;
  * @Annotation\With\Namespace(value={'a', true, null})
  */
 class ClassAnnotatedClass {
-	//put your code here
 }
