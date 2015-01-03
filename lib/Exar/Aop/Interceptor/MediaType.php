@@ -6,6 +6,8 @@ use Exar\Aop\Interceptor\Interfaces\AfterInvocationInterceptor;
 use Exar\Aop\InvocationContext;
 
 /**
+ * Interceptor for class methods which sets the Content-Type header.
+ *
  * @Target("method")
  */
 class MediaType extends Annotation implements AfterInvocationInterceptor {

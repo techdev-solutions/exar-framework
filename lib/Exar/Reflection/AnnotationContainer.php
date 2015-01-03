@@ -8,7 +8,6 @@ use Exar\Annotation\AnnotationParser;
  * of the specified element in an array.
  *
  * @see Exar\Reflection\ReflectionInterface
- * @package Exar\Reflection
  */
 class AnnotationContainer implements ReflectionInterface {
 	private $annotations = array();

@@ -3,8 +3,6 @@ namespace Exar\Reflection;
 
 /**
  * Interface for extended Reflection API.
- *
- * @package Exar\Reflection
  */
 interface ReflectionInterface {
 	/**
@@ -19,7 +17,7 @@ interface ReflectionInterface {
 	 * Returns this element's annotation for the specified name if such an annotation is present, else null.
 	 *
 	 * @param $name annotation name
-	 * @return this element's annotation (last entry) for the specified annotation name if present on this element, else null
+	 * @return mixed this element's annotation (last entry) for the specified annotation name if present on this element, else null
 	 */
 	public function getAnnotation($name);
 

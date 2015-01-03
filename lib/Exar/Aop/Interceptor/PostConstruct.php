@@ -6,7 +6,11 @@ use Exar\Annotation\Annotation;
 use Exar\Aop\Interceptor\Interfaces\AfterInvocationInterceptor;
 use Exar\Aop\InvocationContext;
 
-/** @Target("method") */
+/**
+ * Interceptor for class methods which is executed when the object is instantiated.
+ *
+ * @Target("method")
+ */
 class PostConstruct extends Annotation implements AfterInvocationInterceptor {
 	public function __construct($data, \Reflector $target) {
 		parent::__construct($data, $target);
