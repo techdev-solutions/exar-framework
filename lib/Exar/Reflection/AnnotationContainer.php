@@ -3,9 +3,21 @@ namespace Exar\Reflection;
 
 use Exar\Annotation\AnnotationParser;
 
+/**
+ * Container class which extends the standard Reflection API by extracting and storing information about annotations
+ * of the specified element in an array.
+ *
+ * @see Exar\Reflection\ReflectionInterface
+ * @package Exar\Reflection
+ */
 class AnnotationContainer implements ReflectionInterface {
 	private $annotations = array();
 
+	/**
+	 * Constructor.
+	 *
+	 * @param \Reflector $reflectionObject reflection object to extend
+	 */
 	public function __construct(\Reflector $reflectionObject) {
 		$comment = $reflectionObject->getDocComment();
 		
@@ -14,26 +26,34 @@ class AnnotationContainer implements ReflectionInterface {
 		}
 	}
 
-	public function hasAnnotation($annotation) {
-		return isset($this->annotations[$annotation]);
+	/**
+	 * @see Exar\Reflection\ReflectionInterface::hasAnnotation()
+	 */
+	public function hasAnnotation($name) {
+		return isset($this->annotations[$name]);
 	}
 
-	public function getAnnotation($annotation) {
-		return ($this->hasAnnotation($annotation)) ? $this->annotations[$annotation][0] : null;
+	/**
+	 * @see Exar\Reflection\ReflectionInterface::getAnnotation()
+	 */
+	public function getAnnotation($name) {
+		return ($this->hasAnnotation($name)) ? $this->annotations[$name][0] : null;
 	}
 
+	/**
+	 * @see Exar\Reflection\ReflectionInterface::getAnnotationMap()
+	 */
 	public function getAnnotationMap() {
-		$arr = array();
-		foreach($this->annotations as $name => $annotationArr) {
-			$arr[] = $annotationArr[0];
-		}
-		return $arr;
+		return $this->annotations;
 	}
-	
-	public function getAnnotations($considerMultipleFlag = false) {
+
+	/**
+	 * @see Exar\Reflection\ReflectionInterface::getAnnotations()
+	 */
+	public function getAnnotations($considerMultipleTag = false) {
 		$arr = array();
 		foreach($this->annotations as $name => $annotationArr) {
-			if ($considerMultipleFlag) { // Non-multiple annotations will be returned only once
+			if ($considerMultipleTag) { // Non-multiple annotations will be returned only once
 				$annotation = $annotationArr[0];
 				$classReflection = new ReflectionClass(get_class($annotation));
 				if ($classReflection->hasAnnotation('Multiple')) { // Multiple annotations are allowed

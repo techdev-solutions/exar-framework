@@ -9,12 +9,12 @@ class ReflectionMethod extends \ReflectionMethod implements ReflectionInterface 
         $this->annotationContainer = new AnnotationContainer($this);
 	}
 
-    public function hasAnnotation($annotation) {
-        return $this->annotationContainer->hasAnnotation($annotation);
+    public function hasAnnotation($name) {
+        return $this->annotationContainer->hasAnnotation($name);
     }
 
-    public function getAnnotation($annotation) {
-        return $this->annotationContainer->getAnnotation($annotation);
+    public function getAnnotation($name) {
+        return $this->annotationContainer->getAnnotation($name);
     }
 
     public function getAnnotationMap() {
