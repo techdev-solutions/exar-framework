@@ -9,8 +9,11 @@ use Exar\Aop\Interceptor\Interfaces\AfterReturningInterceptor;
 use Exar\Aop\Interceptor\Interfaces\AfterInvocationInterceptor;
 use Exar\Aop\Interceptor\Interfaces\BeforeInvocationInterceptor;
 
+/**
+ * Singleton class where interceptors are registered. This singleton obejct also invokes the interceptor methods.
+ */
 class InterceptorManager {
-    private static $instance = null;
+    private static $instance = null; // singleton instance
 
     private $annotations = array();
 
@@ -32,6 +35,11 @@ class InterceptorManager {
         }
     }
 
+    /**
+     * Registers an annotation (the information about target object is extracted from the annotation object).
+     *
+     * @param Annotation $annotation annotation to register
+     */
     public function registerAnnotation(Annotation $annotation) {
         $className = $annotation->getTargetClass();
         $methodName = $annotation->getTargetMethod();
@@ -47,6 +55,11 @@ class InterceptorManager {
         $this->annotations[$className][$methodName][] = $annotation;
     }
 
+    /**
+     * Executes registered before advices (before the advised method is invoked).
+     *
+     * @param InvocationContext $context invocation context
+     */
     public function before(InvocationContext $context) {
         foreach ($this->detectInterceptorsForContext($context) as $interceptor) {
             if ($interceptor instanceof BeforeInvocationInterceptor) {
@@ -55,6 +68,11 @@ class InterceptorManager {
         }
     }
 
+    /**
+     * Executes registered after throwing advices (after the advised method throws an exception during execution).
+     *
+     * @param InvocationContext $context invocation context
+     */
     public function afterThrowing(InvocationContext $context) {
         foreach ($this->detectInterceptorsForContext($context) as $interceptor) {
             if ($interceptor instanceof AfterThrowingInterceptor) {
@@ -63,6 +81,12 @@ class InterceptorManager {
         }
     }
 
+    /**
+     * Executes registered after returning advices (after the advised method finishes execution without exceptions).
+     *
+     * @param InvocationContext $context invocation context
+     * @param $result result returned from the advised method after its invocation
+     */
     public function afterReturning(InvocationContext $context, $result) {
         foreach ($this->detectInterceptorsForContext($context) as $interceptor) {
             if ($interceptor instanceof AfterReturningInterceptor) {
@@ -71,6 +95,13 @@ class InterceptorManager {
         }
     }
 
+    /**
+     * Executes registered after advices (after the advised method finishes execution).
+     *
+     * @param InvocationContext $context invocation context
+     * @param $result result returned from the advised method after its invocation
+     * @return mixed method result that is returned after it has been processed by registered interceptors
+     */
     public function after(InvocationContext $context, $result) {
         foreach ($this->detectInterceptorsForContext($context) as $interceptor) {
             if ($interceptor instanceof AfterInvocationInterceptor) {
