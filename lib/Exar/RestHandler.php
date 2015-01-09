@@ -6,8 +6,8 @@ use Exar\Reflection\ReflectionMethod;
 
 /**
  * REST handler class that supports basic REST functionality.
- * The resource classes must be annotated with @Exar and @REST.
- * The action methods have to be annotated with @Path to be processed.
+ * The resource classes do not have to be annotated with @Exar.
+ * The action methods must be annotated with @Path to be processed.
  *
  * IMPORTANT: To get your RESTful services working, you have to tell the web server
  * to route all REST calls to the PHP script where your resources are dispatched.
@@ -182,10 +182,6 @@ class RestHandler {
     static private function activate(array $classes) {
         foreach ($classes as $cl) {
             $rClass = new ReflectionClass($cl);
-
-            if (!$rClass->hasAnnotation('REST')) { // class must be annotated with @REST to be processed
-                continue;
-            }
 
             foreach ($rClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $rMethod) {
                 self::processMethod($rMethod);
