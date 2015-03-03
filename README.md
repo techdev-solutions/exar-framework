@@ -17,7 +17,7 @@ Create a `composer.json` file in your project root and define the dependency:
 
 Install Composer in your project:
 	
-	curl -s http://getcomposer.org/installer | php</code></pre>
+	curl -s http://getcomposer.org/installer | php
 
 
 Tell Composer to download and install the dependencies:
